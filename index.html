@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>BrainX</title>
+  <link rel="icon" type="image/x-icon" href="">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.min.css'><link rel="stylesheet" href="./style.css">
+  
+
+</head>
+<body>
+
+  
+    
+<!-- partial:index.partial.html -->
+<div id="app" v-cloak>
+  <img src="vue.ai-color-logo.png" alt="Paris" class="center">
+
+  <div class="row">
+   
+    <div class="large-12 columns">
+      
+      <h1>{{ quiz.title }}</h1>
+      
+       
+      <div style="height: ;"  class="callout">
+
+        <div v-for="(question, index) in quiz.questions">
+          <!-- Hide all questions, show only the one with index === to current question index -->
+          <div v-show="index === questionIndex">
+            <h3 style="font-family: 'Poppins', sans-serif;">{{ question.text }}</h3>
+            <ol>
+              <!-- for each response of the current question -->
+              <li v-for="response in question.responses">
+                <label style="font-size: 18px; padding-top:50px">
+								    <input type="radio"
+								           v-bind:value="response.value"
+								           v-bind:name="index"
+								           v-model="userResponses[index]"> {{response.text}}
+								  </label>
+              </li>
+
+            </ol>
+            <!-- The two navigation buttons -->
+            <!-- Note: prev is hidden on first question -->
+           
+            <button   style="align-items: center;" class="success button" v-on:click="Submit">
+              Submit
+            </button>
+           
+          </div>
+        </div>
+        <button  class="secondary button" v-if="questionIndex > 0" v-on:click="prev">
+          prev
+        </button>
+        <!-- Last page, quiz is finished, display result -->
+        <div v-show="questionIndex === quiz.questions.length">
+          <h3></h3>
+          <p>
+             {{ score() }}
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<!-- partial -->
+  <script src='https://unpkg.com/vue/dist/vue.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
